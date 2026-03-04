@@ -1,22 +1,62 @@
-# Workplace Harassment and Discrimination Reporting Tool
+# EthicalReport
+A workplace harassment, discrimination, and retaliation reporting tool.
 
-## What this project is
-This project is a program that will help people in creating well formatted documents, like incidents that occur at the workplace, which can be deemed as harassment or duscrimination. This progream aims to assist people in providing a complete report regarding the incident, which can be saved as a markdown file. The report will include vital information regarding the date and time the incident occurred, the individuals involved, witnesses, a description of the incident, the compliance officer, and the report status.
+## About This Project: EthicalReport v1.0
+This project is software that helps employees create well formatted report documents for workplace harassment, discrimination, and retaliation incidents. The software aims to provide a human readable, portable markdown report file. The resulting report includes information like date and time the incident occurred, the individuals involved, witnesses, a description of the incident, the compliance officer assigned to review the report, a report ID, and the report status. 
 
-## Why this project matters
-Workplace harassment and discrimination reporting tools are often confusing, and lack confidentiality. This can make the employee feel that the report is not being taken seriously. If the individual does not have proper records, it can be difficult for the report to be taken seriously.
+## Why EthicalReport Matters
+Workplace harassment and discrimination reporting tools are often confusing, lack confidentiality, and are often opaque to the user. This can make the employee feel that the report is not being taken seriously or simply ignored. If the company itself and the filing individual do not have proper records, it can be difficult to track and solve workplace incidents that satisfy all parties. By creating a comprehensive and human readable markdown file, we can create a digital record that helps hold the company accountable and keep the filer informed.
 
-## Problems with current reporting tools
-- Complicated and confusing
-- Lack of confidentiality, which results in fear of retaliation
-- No feedback regarding the report status
+## Problems with Existing Reporting Tools
+- Often complicated and confusing, using overly technical terminology, requiring unnecessary or exhaustive info, or presenting a confusing user infterface.
+- Lack of confidentiality, which can result in fear of retaliation
+- Reporters often receive no feedback regarding the report status and are provided with no information about how their report is being handled.
 
-## Main goals of the project
-- Assist the user in documenting the incident as quickly and easily as possible
-- Ensure that all necessary information is included
-- Provide a dated and organized report that can potentially be used for investigating the incident
-- Provide information on the compliance officer and report status
-- Anonymize the information as necessary
+## Our Solution
+- EthicalReport assists the user in documenting the incident as quickly and easily as possible with a simple GUI.
+- It ensures that all the information necessary for seeking justice is present, helping the user cover all their bases legally.
+- Provides a dated and organized report that can be used as the basis of investigations performed by the company or compliance organization.
+- Provides information about the compliance officer and report status to hold the compliance team accountable for timely acknowledgement of the incident.
+- Anonymizes the information as necessary to protect trust and avoid illegal retaliation.
 
-## Final product
-A Markdown file is created as the final product of this project, which includes a full report on the incident with all necessary information included.
+## About the Resulting Report File
+The final output of the EthicalReport software is a markdown file (.md), which includes a comprehensive, readable report on the incident with all necessary information included. The file name is created based on the year it was created and the assigned ID of the report, which is also present within the file. It includes well formatted and clearly labeled text that summarizes all of the information gathered at the time of reporting.
+
+## Under the Hood: Variable Names and Data Types
+Below is a table of the variable names we use under the hood. You can dive into the comments within the code to see how these variables are utilized in the final output format.
+
+
+| Information                    | Variable Name          | Data Type | Expected Values                | Description                                                                                                                                                                              |
+| ------------------------------ | ---------------------- | --------- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Type of Report                 | reportType             | integar   | 0                              | Harassment - for a workplace harassment report                                                                                                                                           |
+|                                |                        | integar   | 1                              | Discrimination - for a discrimination report                                                                                                                                             |
+|                                |                        | integar   | 2                              | Retaliation - for reporting retaliation                                                                                                                                                  |
+| Anonymous Report?              | isAnonymous            | boolean   | True/False                     | Determines whether or not filer's information is appended to the document or not                                                                                                         |
+| Reporter Information           | reporterName           | string    |                                | Name of the person creating the report (the reporter)                                                                                                                                    |
+|                                | reporterEmail          | string    | user@company.com               | Email of the reporter                                                                                                                                                                    |
+|                                | reporterPhone          | string    | (360) 123-4567                 | Phone number of the reporter                                                                                                                                                             |
+|                                | reporterRole           | string    | Sales Agent                    | Job description of the reporter to identify department/job/employee ID etc                                                                                                               |
+| Reported By Victim?            | isVictim               | boolean   | True/False                     | Is the reporter the victim? This determines if we need to add additional info and if the person can request a resolution process                                                         |
+| Victim Information             | victimName             | string    |                                | If the reporter is not the victim we have to collect this info, starting with the name                                                                                                   |
+|                                | victimEmail            | string    | user@company.com               | Email of the Victim                                                                                                                                                                      |
+|                                | victimPhone            | string    | (360) 123-4567                 | Phone of the Victim                                                                                                                                                                      |
+|                                | victimRole             | string    | Sales Agent                    | Job description of the victim to identify department/job/employee ID, etc                                                                                                                |
+| Report Information             | reportDate             | string    | mm/dd/yyyy                     | Date the report took place - automatically generated by the software based on when the final file is generated                                                                           |
+|                                | reportTime             | string    | 23:59:59                       | Time in 24-hour format - also generated based on final file                                                                                                                              |
+|                                | reportID               | string    | 2026-5678                      | The year, a hyphen, and then a randomly generated four-digit code to give the report a unique ID. This ID is used in the filename of the resulting report                                |
+|                                | reportPrevious         | boolean   | True/False                     | If True: requires previous report ID, date, and officer, and marks the report as a repeat. If False: does not require previous information, marks report as new                          |
+|                                | reportPreviousDate     | string    | mm/dd/yyyy                     | Date of the previous report                                                                                                                                                              |
+|                                | reportPreviousID       | string    | 2026-1234                      | ID of the previous report                                                                                                                                                                |
+|                                | reportPreviousOfficer  | string    | Compliance Officer             | Name of the compliance officer assigned to previous report                                                                                                                               |
+| Incident Information           | incidentDate           | string    | mm/dd/yyyy                     | Date the incident in question took place (entered by user)                                                                                                                               |
+|                                | incidentTime           | string    | 23:59:59                       | Time the incident took place (entered by user)                                                                                                                                           |
+|                                | incidentLocation       | string    | Break Room                     | A description of the location the incident took place in                                                                                                                                 |
+|                                | incidentDescription    | string    | Lorem ipsum.                   | A description of the incident: what happened to who, in what way?                                                                                                                        |
+|                                | incidentPersons        | dict      | John Smith: jsmith@company.com | Dictionary object with the name of the involved persons as a key and their email as a value. Can list any number of involved people including perpetrators, witnesses, victims, or other |
+|                                | incidentComment        | string    | Lorem ipsum.                   | Any additional comments are included                                                                                                                                                     |
+|                                | incidentCurrentOfficer | string    | Compliance Officer             | Name of the compliance officer assigned to this report                                                                                                                                   |
+| Resolution Process Information | resolutionProcessType  | integar   | 0                              | Formal Investigation                                                                                                                                                                     |
+|                                |                        | integar   | 1                              | Mediation                                                                                                                                                                                |
+|                                |                        | integar   | 2                              | No Specific Request                                                                                                                                                                      |
+|                                |                        | integar   | 3                              | Other                                                                                                                                                                                    |
+|                                | resolutionProcessOther | string    | Lorem ipsum.                   | If the resolutionProcessType is "Other" (3), we fill out the requested resolution process info with the input here                                                                       |
