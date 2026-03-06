@@ -22,8 +22,8 @@ from tkinter import ttk
 
 import data_stored
 
-# VIEWMANAGER
-class ViewManager(tk.Tk):
+# APPMANAGER
+class AppManager(tk.Tk):
     def __init__(self):
         super().__init__()
 
@@ -55,6 +55,12 @@ class ViewManager(tk.Tk):
     def show_frame(self, page_name):
         frame = self.frames[page_name]
         frame.tkraise()
+    
+    # Defining a function that saves inputs from entries to a dictionary on data_stored.py
+    def save_data(description, entry):
+        data_stored.reporter_data[description] = entry.get()
+
+
 
 # PAGES
 class hello(ttk.Frame):
@@ -122,23 +128,16 @@ class reportDetails(ttk.Frame):
         reporterNameLabel.grid(row=0, column=0, sticky="w", padx=5, pady=5)
         reporterNameEntry = ttk.Entry(bodyFrame, width=30)
         reporterNameEntry.grid(row=0, column=1, sticky="w", padx=5, pady=5)
+        
         # NAVIGATION FRAME
         navFrame = tk.Frame(self, width=0, height = 0)
         navFrame.pack(side="bottom")
-
-        # Function that saves inputs from enttries to a dictionary on data_stored.py then sends user to correct page
-        def save_reporter_details():
-            data_stored.reporter_details['Reporter name'] = reporterNameEntry.get()
-
-
-
-            controller.show_frame("incidentDetails1")
 
         navButtonPrev = ttk.Button(navFrame, text="Previous", command=lambda: controller.show_frame("hello"))
         navButtonPrev.grid(row=0, column=0, sticky="", padx=10, pady=10)
         navButtonPrev.grid(row=0, column=0, sticky="", padx=5, pady=5)
 
-        navButtonNext = ttk.Button(navFrame, text="Next", command=lambda: save_reporter_details())
+        navButtonNext = ttk.Button(navFrame, text="Next", command=lambda: [AppManager.save_data("Reporter Name", reporterNameEntry), controller.show_frame("incidentDetails1")])
         navButtonNext.grid(row = 0, column = 2, sticky = "")
         navButtonNext.grid(row = 0, column = 2, sticky = "", padx=5, pady=5)
 
@@ -319,5 +318,5 @@ class finalize(ttk.Frame):
         progressBar.grid(row = 0, column = 1, padx = 10, pady = 10)
 
 # EXECUTE
-ViewManager().mainloop()
-print (data_stored.reporter_details)
+AppManager().mainloop()
+print (data_stored.reporter_data)
