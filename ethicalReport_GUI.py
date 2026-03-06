@@ -20,17 +20,18 @@
 import tkinter as tk
 from tkinter import ttk
 
+import data_stored
 
 # VIEWMANAGER
 class ViewManager(tk.Tk):
     def __init__(self):
         super().__init__()
-        
+
         # Main Window Settings
         self.title("EthicalReport v1.0")
         self.geometry("1200x700")
         self.resizable(False, False)
-        
+
         # Create a Container Widget to hold the Frames, which represent each "page" of the report process
         container = ttk.Frame(self)
         container.pack(fill="both", expand=True)
@@ -67,12 +68,12 @@ class hello(ttk.Frame):
         headerFrame.pack(side = "top")
         header = ttk.Label(headerFrame, text="Welcome", font=("Calibri", 30, "bold"))
         header.pack(pady = 10)
-        
+
 
         # BODY FRAME
         bodyFrame = tk.Frame(self, width = 0, height = 0)
         bodyFrame.pack(padx = 10, pady = 10)
-        
+
         typeReportLabel = ttk.Label(bodyFrame, text="Type of Report", font=("Calibri", 20))
         typeReportLabel.grid(row=1, column=1, sticky="sW", padx=10, pady=10)
 
@@ -84,11 +85,13 @@ class hello(ttk.Frame):
         # NAVIGATION FRAME
         navFrame = tk.Frame(self, width=0, height = 0)
         navFrame.pack(side="bottom")
-        
+
         navButtonPrev = ttk.Button(navFrame, text="Previous", state = "disabled")
+        navButtonPrev.grid(row=0, column=0, sticky="", padx=10, pady=10)
         navButtonPrev.grid(row=0, column=0, sticky="", padx=5, pady=5)
 
         navButtonNext = ttk.Button(navFrame, text="Next", command=lambda: controller.show_frame("reportDetails"))
+        navButtonNext.grid(row = 0, column = 2, sticky = "")
         navButtonNext.grid(row = 0, column = 2, sticky = "", padx=5, pady=5)
 
         progressBar = ttk.Progressbar(navFrame, orient="horizontal", length=950, mode="determinate", maximum=100)
@@ -108,27 +111,41 @@ class reportDetails(ttk.Frame):
         header.grid(row=0, column=0, pady=10, padx=10, sticky="")
         headerInfo = ttk.Label(headerFrame, text="Please fill in the following data:", font = ("Calibri", 12))
         headerInfo.grid(row=1, column=0, pady=10, padx=10, sticky="")
-        
+
 
         # BODY FRAME
         bodyFrame = tk.Frame(self, width = 0, height = 0)
         bodyFrame.pack(padx = 10, pady = 10)
 
-
+        #Questions
+        reporterNameLabel = ttk.Label(bodyFrame, text="Reporter name: ", font=("Calibri", 12))
+        reporterNameLabel.grid(row=0, column=0, sticky="w", padx=5, pady=5)
+        reporterNameEntry = ttk.Entry(bodyFrame, width=30)
+        reporterNameEntry.grid(row=0, column=1, sticky="w", padx=5, pady=5)
         # NAVIGATION FRAME
         navFrame = tk.Frame(self, width=0, height = 0)
         navFrame.pack(side="bottom")
-        
+
+        # Function that saves inputs from enttries to a dictionary on data_stored.py then sends user to correct page
+        def save_reporter_details():
+            data_stored.reporter_details['Reporter name'] = reporterNameEntry.get()
+
+
+
+            controller.show_frame("incidentDetails1")
+
         navButtonPrev = ttk.Button(navFrame, text="Previous", command=lambda: controller.show_frame("hello"))
+        navButtonPrev.grid(row=0, column=0, sticky="", padx=10, pady=10)
         navButtonPrev.grid(row=0, column=0, sticky="", padx=5, pady=5)
 
-        navButtonNext = ttk.Button(navFrame, text="Next", command=lambda: controller.show_frame("incidentDetails1"))
+        navButtonNext = ttk.Button(navFrame, text="Next", command=lambda: save_reporter_details())
+        navButtonNext.grid(row = 0, column = 2, sticky = "")
         navButtonNext.grid(row = 0, column = 2, sticky = "", padx=5, pady=5)
 
         progressBar = ttk.Progressbar(navFrame, orient="horizontal", length=950, mode="determinate", maximum=100)
         progressBar["value"] = 20
         progressBar.grid(row = 0, column = 1, padx = 10, pady = 10)
-        
+
 class incidentDetails1(ttk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
@@ -142,7 +159,7 @@ class incidentDetails1(ttk.Frame):
         header.grid(row=0, column=0, pady=10, padx=10, sticky="")
         headerInfo = ttk.Label(headerFrame, text="Page 1", font = ("Calibri", 12))
         headerInfo.grid(row=1, column=0, pady=10, padx=10, sticky="")
-        
+
         # BODY FRAME
         bodyFrame = tk.Frame(self, width = 0, height = 0)
         bodyFrame.pack(padx = 10, pady = 10)
@@ -150,17 +167,19 @@ class incidentDetails1(ttk.Frame):
         # NAVIGATION FRAME
         navFrame = tk.Frame(self, width=0, height = 0)
         navFrame.pack(side="bottom")
-        
+
         navButtonPrev = ttk.Button(navFrame, text="Previous", command=lambda: controller.show_frame("reportDetails"))
+        navButtonPrev.grid(row=0, column=0, sticky="", padx=10, pady=10)
         navButtonPrev.grid(row=0, column=0, sticky="", padx=5, pady=5)
 
         navButtonNext = ttk.Button(navFrame, text="Next", command=lambda: controller.show_frame("incidentDetails2"))
+        navButtonNext.grid(row = 0, column = 2, sticky = "")
         navButtonNext.grid(row = 0, column = 2, sticky = "", padx=5, pady=5)
 
         progressBar = ttk.Progressbar(navFrame, orient="horizontal", length=950, mode="determinate", maximum=100)
         progressBar["value"] = 40
         progressBar.grid(row = 0, column = 1, padx = 10, pady = 10)
-        
+
 class incidentDetails2(ttk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
@@ -178,27 +197,29 @@ class incidentDetails2(ttk.Frame):
         # BODY FRAME
         bodyFrame = tk.Frame(self, width = 0, height = 0)
         bodyFrame.pack(padx = 10, pady = 10)
-        
+
         # NAVIGATION FRAME
         navFrame = tk.Frame(self, width=0, height = 0)
         navFrame.pack(side="bottom")
-        
+
         navButtonPrev = ttk.Button(navFrame, text="Previous", command=lambda: controller.show_frame("incidentDetails1"))
+        navButtonPrev.grid(row=0, column=0, sticky="", padx=10, pady=10)
         navButtonPrev.grid(row=0, column=0, sticky="", padx=5, pady=5)
 
         navButtonNext = ttk.Button(navFrame, text="Next", command=lambda: controller.show_frame("incidentDetails3"))
+        navButtonNext.grid(row = 0, column = 2, sticky = "")
         navButtonNext.grid(row = 0, column = 2, sticky = "", padx=5, pady=5)
 
         progressBar = ttk.Progressbar(navFrame, orient="horizontal", length=950, mode="determinate", maximum=100)
         progressBar["value"] = 60
         progressBar.grid(row = 0, column = 1, padx = 10, pady = 10)
-        
+
 class incidentDetails3(ttk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
         self.grid_rowconfigure(1, weight=1)
         self.grid_columnconfigure(0, weight=1)
-        
+
         # HEADER FRAME
         headerFrame = tk.Frame(self, width = 0, height = 0)
         headerFrame.pack(side = "top")
@@ -210,21 +231,23 @@ class incidentDetails3(ttk.Frame):
         # BODY FRAME
         bodyFrame = tk.Frame(self, width = 0, height = 0)
         bodyFrame.pack(padx = 10, pady = 10)
-        
+
         # NAVIGATION FRAME
         navFrame = tk.Frame(self, width=0, height = 0)
         navFrame.pack(side="bottom")
-        
+
         navButtonPrev = ttk.Button(navFrame, text="Previous", command=lambda: controller.show_frame("incidentDetails2"))
+        navButtonPrev.grid(row=0, column=0, sticky="", padx=10, pady=10)
         navButtonPrev.grid(row=0, column=0, sticky="", padx=5, pady=5)
 
         navButtonNext = ttk.Button(navFrame, text="Next", command=lambda: controller.show_frame("resolve"))
+        navButtonNext.grid(row = 0, column = 2, sticky = "")
         navButtonNext.grid(row = 0, column = 2, sticky = "", padx=5, pady=5)
 
         progressBar = ttk.Progressbar(navFrame, orient="horizontal", length=950, mode="determinate", maximum=100)
         progressBar["value"] = 80
         progressBar.grid(row = 0, column = 1, padx = 10, pady = 10)
-        
+
 class resolve(ttk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
@@ -234,6 +257,7 @@ class resolve(ttk.Frame):
         # HEADER FRAME
         headerFrame = tk.Frame(self, width = 0, height = 0)
         headerFrame.pack(side = "top")
+        header = ttk.Label(headerFrame, text="Resolution Process", font = ("Calibri", 30, "bold"))
         header = ttk.Label(headerFrame, text="Resolution Process Request", font = ("Calibri", 30, "bold"))
         header.grid(row=0, column=0, pady=10, padx=10, sticky="")
         headerInfo = ttk.Label(headerFrame, text="Please select the desired resolution process.", font = ("Calibri", 12))
@@ -242,21 +266,23 @@ class resolve(ttk.Frame):
         # BODY FRAME
         bodyFrame = tk.Frame(self, width = 0, height = 0)
         bodyFrame.pack(padx = 10, pady = 10)
-        
+
         # NAVIGATION FRAME
         navFrame = tk.Frame(self, width=0, height = 0)
         navFrame.pack(side="bottom")
-        
+
         navButtonPrev = ttk.Button(navFrame, text="Previous", command=lambda: controller.show_frame("incidentDetails3"))
+        navButtonPrev.grid(row=0, column=0, sticky="", padx=10, pady=10)
         navButtonPrev.grid(row=0, column=0, sticky="", padx=5, pady=5)
 
         navButtonNext = ttk.Button(navFrame, text="Next", command=lambda: controller.show_frame("finalize"))
+        navButtonNext.grid(row = 0, column = 2, sticky = "")
         navButtonNext.grid(row = 0, column = 2, sticky = "", padx=5, pady=5)
 
         progressBar = ttk.Progressbar(navFrame, orient="horizontal", length=950, mode="determinate", maximum=100)
         progressBar["value"] = 90
         progressBar.grid(row = 0, column = 1, padx = 10, pady = 10)
-        
+
 class finalize(ttk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
@@ -274,15 +300,18 @@ class finalize(ttk.Frame):
         # BODY FRAME
         bodyFrame = tk.Frame(self, width = 0, height = 0)
         bodyFrame.pack(padx = 10, pady = 10)
-        
+
         # NAVIGATION FRAME
         navFrame = tk.Frame(self, width=0, height = 0)
         navFrame.pack(side="bottom")
-        
+
         navButtonPrev = ttk.Button(navFrame, text="Previous", command=lambda: controller.show_frame("resolve"))
+        navButtonPrev.grid(row=0, column=0, sticky="", padx=10, pady=10)
         navButtonPrev.grid(row=0, column=0, sticky="", padx=5, pady=5)
 
         navButtonFinish = ttk.Button(navFrame, text="Finish", command=lambda: controller.destroy())
+        navButtonFinish.grid(row=0, column=2, sticky="", padx=10, pady=10)
+
         navButtonFinish.grid(row=0, column=2, sticky="", padx=5, pady=5)
 
         progressBar = ttk.Progressbar(navFrame, orient="horizontal", length=950, mode="determinate", maximum=100)
@@ -291,3 +320,4 @@ class finalize(ttk.Frame):
 
 # EXECUTE
 ViewManager().mainloop()
+print (data_stored.reporter_details)
