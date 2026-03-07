@@ -55,11 +55,10 @@ class AppManager(tk.Tk):
     def show_frame(self, page_name):
         frame = self.frames[page_name]
         frame.tkraise()
-    
-    # Defining a function that saves inputs from entries to a dictionary on data_stored.py
-    def save_data(description, entry):
-        data_stored.reporter_data[description] = entry.get()
 
+    # Defining a function that saves inputs from entries to a dictionary on data_stored.py
+    def save_data(self, description, entry):
+        data_stored.reporter_data[description] = entry.get()
 
 
 # PAGES
@@ -68,7 +67,9 @@ class hello(ttk.Frame):
         super().__init__(parent)
         self.grid_rowconfigure(1, weight=1)
         self.grid_columnconfigure(0, weight=1)
-
+        
+       
+        
         # HEADER FRAME
         headerFrame = tk.Frame(self, width = 0, height = 0)
         headerFrame.pack(side = "top")
@@ -120,16 +121,82 @@ class reportDetails(ttk.Frame):
 
 
         # BODY FRAME
-        bodyFrame = tk.Frame(self, width = 0, height = 0)
+        bodyFrame = tk.Frame(self, width = 500, height = 200)
         bodyFrame.pack(padx = 10, pady = 10)
 
-        #Questions
+        # based what the isAnonymousToggle is toggled to displayy Reporter detail questions
+        def toggle_reporter_details():
+            if isAnonymous.get():
+                reporterNameLabel.grid_remove()
+                reporterNameEntry.grid_remove()
+                reporterEmailLabel.grid_remove()
+                reporterEmailEntry.grid_remove()
+                reporterPhoneLabel.grid_remove()
+                reporterPhoneEntry.grid_remove()
+                reporterRoleLabel.grid_remove()
+                reporterRoleEntry.grid_remove()
+            else:
+                reporterNameLabel.grid()
+                reporterNameEntry.grid()
+                reporterEmailLabel.grid()
+                reporterEmailEntry.grid()
+                reporterPhoneLabel.grid()
+                reporterPhoneEntry.grid()
+                reporterRoleLabel.grid()
+                reporterRoleEntry.grid()
+
+
+
+        # Questions
+        reportDateLabel = ttk.Label(bodyFrame, text="Report date: ", font=("Calibri", 12))
+        reportDateLabel.grid(row=0, column=0, sticky="w", padx=5, pady=5)
+        reportDateEntry = ttk.Entry(bodyFrame, width=30)
+        reportDateEntry.grid(row=0, column=1, sticky="w", padx=5, pady=5)
+
+        reportTimeLabel = ttk.Label(bodyFrame, text="Time of report: ", font=("Calibri", 12))
+        reportTimeLabel.grid(row=1, column=0, sticky="w", padx=5, pady=5)
+        reportTimeEntry = ttk.Entry(bodyFrame, width=30)
+        reportTimeEntry.grid(row=1, column=1, sticky="w", padx=5, pady=5)
+
+        isAnonymous = tk.BooleanVar(value=False)
+        isAnonymousLabel = ttk.Label(bodyFrame, text="Remain anonymous: ", font=("Calibri", 12))
+        isAnonymousLabel.grid(row=2, column=0, sticky="w", padx=5, pady=5)
+        isAnonymousToggle = ttk.Checkbutton(bodyFrame, variable=isAnonymous, onvalue=True, offvalue=False, command=toggle_reporter_details)
+        isAnonymousToggle.grid(row=2, column=1, sticky="w", padx=5, pady=5)
+
         reporterNameLabel = ttk.Label(bodyFrame, text="Reporter name: ", font=("Calibri", 12))
-        reporterNameLabel.grid(row=0, column=0, sticky="w", padx=5, pady=5)
+        reporterNameLabel.grid(row=3, column=0, sticky="w", padx=5, pady=5)
         reporterNameEntry = ttk.Entry(bodyFrame, width=30)
-        reporterNameEntry.grid(row=0, column=1, sticky="w", padx=5, pady=5)
-        
-        # NAVIGATION FRAME
+        reporterNameEntry.grid(row=3, column=1, sticky="w", padx=5, pady=5)
+
+        reporterEmailLabel = ttk.Label(bodyFrame, text="Reporter email: ", font=("Calibri", 12))
+        reporterEmailLabel.grid(row=4, column=0, sticky="w", padx=5, pady=5)
+        reporterEmailEntry = ttk.Entry(bodyFrame, width=30)
+        reporterEmailEntry.grid(row=4, column=1, sticky="w", padx=5, pady=5)
+
+        reporterPhoneLabel = ttk.Label(bodyFrame, text="Reporter phone number: ", font=("Calibri", 12))
+        reporterPhoneLabel.grid(row=5, column=0, sticky="w", padx=5, pady=5)
+        reporterPhoneEntry = ttk.Entry(bodyFrame, width=30)
+        reporterPhoneEntry.grid(row=5, column=1, sticky="w", padx=5, pady=5)
+
+        reporterRoleLabel = ttk.Label(bodyFrame, text="Reporter position: ", font=("Calibri", 12))
+        reporterRoleLabel.grid(row=6, column=0, sticky="w", padx=5, pady=5)
+        reporterRoleEntry = ttk.Entry(bodyFrame, width=30)
+        reporterRoleEntry.grid(row=6, column=1, sticky="w", padx=5, pady=5)
+
+        # function to save multiple variables for report details
+        def Save_report_data():
+            controller.save_data("Report Date", reportDateEntry)
+            controller.save_data("Report Time", reportTimeEntry)
+            if isAnonymous.get():
+                controller.save_data("Anonymous", isAnonymous)
+            else:    
+                controller.save_data("Anonymous", isAnonymous)
+                controller.save_data("Reporter Name", reporterNameEntry)
+                controller.save_data("Reporter Email", reporterEmailEntry)
+                controller.save_data("Reporter Phone", reporterPhoneEntry)
+                controller.save_data("Reporter Role", reporterRoleEntry)
+            # NAVIGATION FRAME
         navFrame = tk.Frame(self, width=0, height = 0)
         navFrame.pack(side="bottom")
 
@@ -137,7 +204,7 @@ class reportDetails(ttk.Frame):
         navButtonPrev.grid(row=0, column=0, sticky="", padx=10, pady=10)
         navButtonPrev.grid(row=0, column=0, sticky="", padx=5, pady=5)
 
-        navButtonNext = ttk.Button(navFrame, text="Next", command=lambda: [AppManager.save_data("Reporter Name", reporterNameEntry), controller.show_frame("incidentDetails1")])
+        navButtonNext = ttk.Button(navFrame, text="Next", command=lambda: [Save_report_data(), controller.show_frame("incidentDetails1")])
         navButtonNext.grid(row = 0, column = 2, sticky = "")
         navButtonNext.grid(row = 0, column = 2, sticky = "", padx=5, pady=5)
 
