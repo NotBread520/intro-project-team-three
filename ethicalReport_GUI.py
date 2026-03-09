@@ -1,11 +1,13 @@
-# CS110 - Group 3 - Final Group Project - EthicalReport - 3/4/2026
-# Project Members:
+# CS110 - Group 3 - Final Group Project - EthicalReport - 3/9/2026
+#
+#  Project Members:
 #   Luc DeBenon
 #   Jacob Gilseth
 #   Xander Mickelson
 #
-# This python document creates and configures the GUI for the EthicalReport software project.
-# It also saves collected data into data_stored.py and generates a final markdown report.
+# This python program creates and configures the GUI for the EthicalReport software project.
+# It also saves the data collected from the GUI into the data_stored.py file,
+# and generates a final markdown report.
 
 import tkinter as tk
 from tkinter import ttk
@@ -44,32 +46,33 @@ class AppManager(tk.Tk):
             frame.grid(row=0, column=0, sticky="nsew")
 
         self.show_frame("hello")
-
-    def show_frame(self, page_name):
+    
+    #APPMANAGER Functions
+    def show_frame(self, page_name): #Manages page selection in GUI
         frame = self.frames[page_name]
         frame.tkraise()
 
-    def save_data(self, description, widget_or_value):
+    def save_data(self, description, widget_or_value): #Records tkinger entry() fields as workable data in our data_stored file
         try:
             data_stored.reporter_data[description] = widget_or_value.get()
         except AttributeError:
             data_stored.reporter_data[description] = widget_or_value
 
 
-# PAGES
+# PAGES - Each class object defines one of the 7 forms required to fill out an EthicalReport document
 class hello(ttk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
         self.grid_rowconfigure(1, weight=1)
         self.grid_columnconfigure(0, weight=1)
 
-        # HEADER FRAME
+        # HEADER FRAME - Included on each page, provides a title and instructions for the forms
         headerFrame = tk.Frame(self)
         headerFrame.pack(side="top")
         header = ttk.Label(headerFrame, text="Welcome", font=("Calibri", 30, "bold"))
         header.pack(pady=10)
 
-        # BODY FRAME
+        # BODY FRAME - Included on each page, the main body contents of the form including entries
         bodyFrame = tk.Frame(self)
         bodyFrame.pack(padx=10, pady=10)
 
@@ -97,7 +100,7 @@ class hello(ttk.Frame):
         )
         rReportButton.grid(row=2, column=2, padx=10, pady=10)
 
-        # NAVIGATION FRAME
+        # NAVIGATION FRAME - Included on each page, a progress bar and buttons to navigate between form pages
         navFrame = tk.Frame(self)
         navFrame.pack(side="bottom")
 
@@ -476,6 +479,6 @@ class finalize(ttk.Frame):
         progressBar.grid(row=0, column=1, padx=10, pady=10)
 
 
-# EXECUTE
+# EXECUTE - Final stage of the program: we simply call the AppManager() to run its tkinter mainloop(), launching the GUI.
 AppManager().mainloop()
 print(data_stored.reporter_data)
