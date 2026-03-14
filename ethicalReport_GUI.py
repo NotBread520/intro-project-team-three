@@ -81,30 +81,9 @@ class hello(ttk.Frame):
         # BODY FRAME - Included on each page, the main body contents of the form including entries
         bodyFrame = tk.Frame(self)
         bodyFrame.pack(padx=10, pady=10)
-
-        typeReportLabel = ttk.Label(bodyFrame, text="Type of Report", font=("Calibri", 20))
-        typeReportLabel.grid(row=1, column=1, sticky="sw", padx=10, pady=10)
-
-        hReportButton = ttk.Button(
-            bodyFrame,
-            text="Harassment",
-            command=lambda: controller.save_data("Report Type", "Harassment")
-        )
-        hReportButton.grid(row=2, column=0, padx=10, pady=10)
-
-        dReportButton = ttk.Button(
-            bodyFrame,
-            text="Discrimination",
-            command=lambda: controller.save_data("Report Type", "Discrimination")
-        )
-        dReportButton.grid(row=2, column=1, padx=10, pady=10)
-
-        rReportButton = ttk.Button(
-            bodyFrame,
-            text="Retaliation",
-            command=lambda: controller.save_data("Report Type", "Retaliation")
-        )
-        rReportButton.grid(row=2, column=2, padx=10, pady=10)
+        
+        hintLabel = ttk.Label(bodyFrame, text="Click \"Next\" to continue filing the report.", font=("Calibri", 20))
+        hintLabel.grid(row=8, column=1, sticky="s", padx=10, pady=10)
 
         # NAVIGATION FRAME - Included on each page, a progress bar and buttons to navigate between form pages
         navFrame = tk.Frame(self)
@@ -132,8 +111,6 @@ class reportDetails(ttk.Frame):
         headerFrame.pack(side="top")
         header = ttk.Label(headerFrame, text="Report Details", font=("Calibri", 30, "bold"))
         header.grid(row=0, column=0, pady=10, padx=10)
-        headerInfo = ttk.Label(headerFrame, text="Please fill in the following data:", font=("Calibri", 12))
-        headerInfo.grid(row=1, column=0, pady=10, padx=10)
 
         # BODY FRAME
         bodyFrame = tk.Frame(self, width=500, height=200)
@@ -159,19 +136,43 @@ class reportDetails(ttk.Frame):
                 reporterRoleLabel.grid()
                 reporterRoleEntry.grid()
 
+        typeSelectLabel = ttk.Label(headerFrame, text="Select the type of report:", font=("Calibri", 12))
+        typeSelectLabel.grid(row=1, column=0, pady=10, padx=10)
+
+        hReportButton = ttk.Button(
+            bodyFrame,
+            text="Harassment",
+            command=lambda: controller.save_data("Report Type", "Harassment")
+        )
+        hReportButton.grid(row=2, column=0, padx=10, pady=10, ipadx = 40, ipady = 30)
+
+        dReportButton = ttk.Button(
+            bodyFrame,
+            text="Discrimination",
+            command=lambda: controller.save_data("Report Type", "Discrimination")
+        )
+        dReportButton.grid(row=2, column=1, padx=10, pady=10, ipadx = 40, ipady = 30)
+
+        rReportButton = ttk.Button(
+            bodyFrame,
+            text="Retaliation",
+            command=lambda: controller.save_data("Report Type", "Retaliation"),
+        )
+        rReportButton.grid(row=2, column=2, padx=10, pady=10, ipadx = 40, ipady = 30)
+
         reportDateLabel = ttk.Label(bodyFrame, text="Report date: ", font=("Calibri", 12))
-        reportDateLabel.grid(row=0, column=0, sticky="w", padx=5, pady=5)
+        reportDateLabel.grid(row=3, column=0, sticky="w", padx=5, pady=5)
         reportDateEntry = ttk.Entry(bodyFrame, width=30)
-        reportDateEntry.grid(row=0, column=1, sticky="w", padx=5, pady=5)
+        reportDateEntry.grid(row=3, column=1, sticky="w", padx=5, pady=5)
 
         reportTimeLabel = ttk.Label(bodyFrame, text="Time of report: ", font=("Calibri", 12))
-        reportTimeLabel.grid(row=1, column=0, sticky="w", padx=5, pady=5)
+        reportTimeLabel.grid(row=4, column=0, sticky="w", padx=5, pady=5)
         reportTimeEntry = ttk.Entry(bodyFrame, width=30)
-        reportTimeEntry.grid(row=1, column=1, sticky="w", padx=5, pady=5)
+        reportTimeEntry.grid(row=4, column=1, sticky="w", padx=5, pady=5)
 
         isAnonymous = tk.BooleanVar(value=False)
         isAnonymousLabel = ttk.Label(bodyFrame, text="Remain anonymous: ", font=("Calibri", 12))
-        isAnonymousLabel.grid(row=2, column=0, sticky="w", padx=5, pady=5)
+        isAnonymousLabel.grid(row=5, column=0, sticky="w", padx=5, pady=5)
         isAnonymousToggle = ttk.Checkbutton(
             bodyFrame,
             variable=isAnonymous,
@@ -179,27 +180,27 @@ class reportDetails(ttk.Frame):
             offvalue=False,
             command=toggle_reporter_details
         )
-        isAnonymousToggle.grid(row=2, column=1, sticky="w", padx=5, pady=5)
+        isAnonymousToggle.grid(row=5, column=1, sticky="w", padx=5, pady=5)
 
         reporterNameLabel = ttk.Label(bodyFrame, text="Reporter name: ", font=("Calibri", 12))
-        reporterNameLabel.grid(row=3, column=0, sticky="w", padx=5, pady=5)
+        reporterNameLabel.grid(row=6, column=0, sticky="w", padx=5, pady=5)
         reporterNameEntry = ttk.Entry(bodyFrame, width=30)
-        reporterNameEntry.grid(row=3, column=1, sticky="w", padx=5, pady=5)
+        reporterNameEntry.grid(row=6, column=1, sticky="w", padx=5, pady=5)
 
         reporterEmailLabel = ttk.Label(bodyFrame, text="Reporter email: ", font=("Calibri", 12))
-        reporterEmailLabel.grid(row=4, column=0, sticky="w", padx=5, pady=5)
+        reporterEmailLabel.grid(row=7, column=0, sticky="w", padx=5, pady=5)
         reporterEmailEntry = ttk.Entry(bodyFrame, width=30)
-        reporterEmailEntry.grid(row=4, column=1, sticky="w", padx=5, pady=5)
+        reporterEmailEntry.grid(row=7, column=1, sticky="w", padx=5, pady=5)
 
         reporterPhoneLabel = ttk.Label(bodyFrame, text="Reporter phone number: ", font=("Calibri", 12))
-        reporterPhoneLabel.grid(row=5, column=0, sticky="w", padx=5, pady=5)
+        reporterPhoneLabel.grid(row=8, column=0, sticky="w", padx=5, pady=5)
         reporterPhoneEntry = ttk.Entry(bodyFrame, width=30)
-        reporterPhoneEntry.grid(row=5, column=1, sticky="w", padx=5, pady=5)
+        reporterPhoneEntry.grid(row=8, column=1, sticky="w", padx=5, pady=5)
 
         reporterRoleLabel = ttk.Label(bodyFrame, text="Reporter position: ", font=("Calibri", 12))
-        reporterRoleLabel.grid(row=6, column=0, sticky="w", padx=5, pady=5)
+        reporterRoleLabel.grid(row=9, column=0, sticky="w", padx=5, pady=5)
         reporterRoleEntry = ttk.Entry(bodyFrame, width=30)
-        reporterRoleEntry.grid(row=6, column=1, sticky="w", padx=5, pady=5)
+        reporterRoleEntry.grid(row=9, column=1, sticky="w", padx=5, pady=5)
 
         def save_report_data():
             controller.save_data("Report Date", reportDateEntry)

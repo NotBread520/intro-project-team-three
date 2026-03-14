@@ -24,4 +24,10 @@ Workplace harassment and discrimination reporting tools can be confusing, lack c
 - Provides information about the compliance officer and report status to hold the compliance team accountable for timely acknowledgement of the incident.
 - Anonymizes the information as necessary to protect trust and avoid illegal retaliation.
 
+---
 
+## How to Use EthicalReport
+1. EthicalReport uses a graphical user interface to make creating your report as easy as possible. Run the ethicalReport_GUI.py file to access the GUI.
+2. Use the navigation bar at the bottom of the GUI window to navigate between the different pages of the report form.
+3. Follow the prompts on the screen to fill out all the relevant information.
+4. On the final page, record the Report ID that EthicalReport generates for you. This ID records the date of the report when filed and a unique ID for your individual report.
