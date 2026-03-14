@@ -9,6 +9,8 @@
 # It also saves the data collected from the GUI into the data_stored.py file,
 # and generates a final markdown report.
 
+import random
+from datetime import date
 import tkinter as tk
 from tkinter import ttk
 
@@ -26,8 +28,12 @@ class AppManager(tk.Tk):
         self.geometry("1200x700")
         self.resizable(False, False)
 
-        # Temporary Report ID
-        data_stored.reporter_data["Report ID"] = "ER-001"
+        # Report ID
+        currentDate = str(date.today())
+        uniqueID = str(random.randint(1000, 9999))
+        global reportID 
+        reportID = f"ER-{currentDate}-{uniqueID}"
+        data_stored.reporter_data["Report ID"] = reportID
 
         # Create a Container Widget to hold the Frames
         container = ttk.Frame(self)
@@ -446,7 +452,7 @@ class finalize(ttk.Frame):
         headerFrame.pack(side="top")
         header = ttk.Label(headerFrame, text="Report Complete", font=("Calibri", 30, "bold"))
         header.grid(row=0, column=0, pady=10, padx=10)
-        headerInfo = ttk.Label(headerFrame, text="Your Report ID is: ER-001", font=("Calibri", 12))
+        headerInfo = ttk.Label(headerFrame, text=f"Your Report ID is: {reportID}", font=("Calibri", 12))
         headerInfo.grid(row=1, column=0, pady=10, padx=10)
 
         # BODY FRAME

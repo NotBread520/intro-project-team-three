@@ -36,7 +36,7 @@ def build_markdown_report(data):
         reporter_phone = "Hidden"
         reporter_role = "Hidden"
 
-    markdown_text = f"""# EthicalReport Final Report
+    markdown_text = f"""# EthicalReport 1.0
 
 ## Report Information
 - **Report ID:** {report_id}
@@ -99,9 +99,9 @@ def save_markdown_report(data):
     report_id = safe_value(data, "Report ID")
 
     if report_id == "Not provided":
-        file_name = "final_report.md"
+        file_name = "ER-report.md"
     else:
-        file_name = f"final_report_{report_id}.md"
+        file_name = f"{report_id}.md"
 
     print("Building markdown text...")
     markdown_text = build_markdown_report(data)
