@@ -46,7 +46,7 @@ class AppManager(tk.Tk):
         # Store all pages
         self.frames = {}
 
-        for page in (hello, reportDetails, incidentDetails1, incidentDetails2, incidentDetails3, resolve, finalize):
+        for page in (hello, reportDetails, incidentDetails, resolve, finalize):
             frame = page(parent=container, controller=self)
             self.frames[page.__name__] = frame
             frame.grid(row=0, column=0, sticky="nsew")
@@ -65,7 +65,9 @@ class AppManager(tk.Tk):
             data_stored.reporter_data[description] = widget_or_value
 
 
-# PAGES - Each class object defines one of the 7 forms required to fill out an EthicalReport document
+# PAGES - Each class object defines one of the forms required to fill out an EthicalReport document
+
+# Hello Page - The first page you see when you open the program.
 class hello(ttk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
@@ -78,7 +80,7 @@ class hello(ttk.Frame):
         header = ttk.Label(headerFrame, text="Welcome", font=("Calibri", 30, "bold"))
         header.pack(pady=10)
 
-        # BODY FRAME - Included on each page, the main body contents of the form including entries
+        # BODY FRAME - Included on each page, the main body contents of the form, especially entries for report information
         bodyFrame = tk.Frame(self)
         bodyFrame.pack(padx=10, pady=10)
         
@@ -95,11 +97,12 @@ class hello(ttk.Frame):
         navButtonNext = ttk.Button(navFrame, text="Next", command=lambda: controller.show_frame("reportDetails"))
         navButtonNext.grid(row=0, column=2, padx=5, pady=5)
 
-        progressBar = ttk.Progressbar(navFrame, orient="horizontal", length=950, mode="determinate", maximum=100)
+# The Progress bar is statically fit to the bottom edge. Since we know the number and order of pages we simply set a static progress bar value per page.
+        progressBar = ttk.Progressbar(navFrame, orient="horizontal", length=950, mode="determinate", maximum=100) 
         progressBar["value"] = 0
         progressBar.grid(row=0, column=1, padx=10, pady=10)
 
-
+# Report Details Page - Gathers information about the report itself.
 class reportDetails(ttk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
@@ -160,18 +163,18 @@ class reportDetails(ttk.Frame):
         )
         rReportButton.grid(row=2, column=2, padx=10, pady=10, ipadx = 40, ipady = 30)
 
-        reportDateLabel = ttk.Label(bodyFrame, text="Report date: ", font=("Calibri", 12))
+        reportDateLabel = ttk.Label(bodyFrame, text="Report Date: ", font=("Calibri", 12))
         reportDateLabel.grid(row=3, column=0, sticky="w", padx=5, pady=5)
         reportDateEntry = ttk.Entry(bodyFrame, width=30)
         reportDateEntry.grid(row=3, column=1, sticky="w", padx=5, pady=5)
 
-        reportTimeLabel = ttk.Label(bodyFrame, text="Time of report: ", font=("Calibri", 12))
+        reportTimeLabel = ttk.Label(bodyFrame, text="Time of Report: ", font=("Calibri", 12))
         reportTimeLabel.grid(row=4, column=0, sticky="w", padx=5, pady=5)
         reportTimeEntry = ttk.Entry(bodyFrame, width=30)
         reportTimeEntry.grid(row=4, column=1, sticky="w", padx=5, pady=5)
 
         isAnonymous = tk.BooleanVar(value=False)
-        isAnonymousLabel = ttk.Label(bodyFrame, text="Remain anonymous: ", font=("Calibri", 12))
+        isAnonymousLabel = ttk.Label(bodyFrame, text="Remain Anonymous: ", font=("Calibri", 12))
         isAnonymousLabel.grid(row=5, column=0, sticky="w", padx=5, pady=5)
         isAnonymousToggle = ttk.Checkbutton(
             bodyFrame,
@@ -182,22 +185,22 @@ class reportDetails(ttk.Frame):
         )
         isAnonymousToggle.grid(row=5, column=1, sticky="w", padx=5, pady=5)
 
-        reporterNameLabel = ttk.Label(bodyFrame, text="Reporter name: ", font=("Calibri", 12))
+        reporterNameLabel = ttk.Label(bodyFrame, text="Reporter Name: ", font=("Calibri", 12))
         reporterNameLabel.grid(row=6, column=0, sticky="w", padx=5, pady=5)
         reporterNameEntry = ttk.Entry(bodyFrame, width=30)
         reporterNameEntry.grid(row=6, column=1, sticky="w", padx=5, pady=5)
 
-        reporterEmailLabel = ttk.Label(bodyFrame, text="Reporter email: ", font=("Calibri", 12))
+        reporterEmailLabel = ttk.Label(bodyFrame, text="Reporter Email: ", font=("Calibri", 12))
         reporterEmailLabel.grid(row=7, column=0, sticky="w", padx=5, pady=5)
         reporterEmailEntry = ttk.Entry(bodyFrame, width=30)
         reporterEmailEntry.grid(row=7, column=1, sticky="w", padx=5, pady=5)
 
-        reporterPhoneLabel = ttk.Label(bodyFrame, text="Reporter phone number: ", font=("Calibri", 12))
+        reporterPhoneLabel = ttk.Label(bodyFrame, text="Reporter Phone Number: ", font=("Calibri", 12))
         reporterPhoneLabel.grid(row=8, column=0, sticky="w", padx=5, pady=5)
         reporterPhoneEntry = ttk.Entry(bodyFrame, width=30)
         reporterPhoneEntry.grid(row=8, column=1, sticky="w", padx=5, pady=5)
 
-        reporterRoleLabel = ttk.Label(bodyFrame, text="Reporter position: ", font=("Calibri", 12))
+        reporterRoleLabel = ttk.Label(bodyFrame, text="Reporter Position: ", font=("Calibri", 12))
         reporterRoleLabel.grid(row=9, column=0, sticky="w", padx=5, pady=5)
         reporterRoleEntry = ttk.Entry(bodyFrame, width=30)
         reporterRoleEntry.grid(row=9, column=1, sticky="w", padx=5, pady=5)
@@ -223,16 +226,16 @@ class reportDetails(ttk.Frame):
         navButtonNext = ttk.Button(
             navFrame,
             text="Next",
-            command=lambda: [save_report_data(), controller.show_frame("incidentDetails1")]
+            command=lambda: [save_report_data(), controller.show_frame("incidentDetails")]
         )
         navButtonNext.grid(row=0, column=2, padx=5, pady=5)
 
         progressBar = ttk.Progressbar(navFrame, orient="horizontal", length=950, mode="determinate", maximum=100)
-        progressBar["value"] = 20
+        progressBar["value"] = 25
         progressBar.grid(row=0, column=1, padx=10, pady=10)
 
-
-class incidentDetails1(ttk.Frame):
+# Indcident Details Page - Gathers information about the incident being reported
+class incidentDetails(ttk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
         self.grid_rowconfigure(1, weight=1)
@@ -250,25 +253,49 @@ class incidentDetails1(ttk.Frame):
         bodyFrame = tk.Frame(self)
         bodyFrame.pack(padx=10, pady=10)
 
-        incidentDateLabel = ttk.Label(bodyFrame, text="Incident date: ", font=("Calibri", 12))
+        incidentDateLabel = ttk.Label(bodyFrame, text="Incident Date: ", font=("Calibri", 12))
         incidentDateLabel.grid(row=0, column=0, sticky="w", padx=5, pady=5)
         incidentDateEntry = ttk.Entry(bodyFrame, width=30)
         incidentDateEntry.grid(row=0, column=1, sticky="w", padx=5, pady=5)
 
-        incidentTimeLabel = ttk.Label(bodyFrame, text="Incident time: ", font=("Calibri", 12))
+        incidentTimeLabel = ttk.Label(bodyFrame, text="Incident Time: ", font=("Calibri", 12))
         incidentTimeLabel.grid(row=1, column=0, sticky="w", padx=5, pady=5)
         incidentTimeEntry = ttk.Entry(bodyFrame, width=30)
         incidentTimeEntry.grid(row=1, column=1, sticky="w", padx=5, pady=5)
 
-        incidentLocationLabel = ttk.Label(bodyFrame, text="Incident location: ", font=("Calibri", 12))
+        incidentLocationLabel = ttk.Label(bodyFrame, text="Incident Location: ", font=("Calibri", 12))
         incidentLocationLabel.grid(row=2, column=0, sticky="w", padx=5, pady=5)
         incidentLocationEntry = ttk.Entry(bodyFrame, width=30)
         incidentLocationEntry.grid(row=2, column=1, sticky="w", padx=5, pady=5)
+
+        accusedNameLabel = ttk.Label(bodyFrame, text="Reported Person's Name: ", font=("Calibri", 12))
+        accusedNameLabel.grid(row=3, column=0, sticky="w", padx=5, pady=5)
+        accusedNameEntry = ttk.Entry(bodyFrame, width=30)
+        accusedNameEntry.grid(row=3, column=1, sticky="w", padx=5, pady=5)
+
+        accusedRoleLabel = ttk.Label(bodyFrame, text="Reported Person's Role: ", font=("Calibri", 12))
+        accusedRoleLabel.grid(row=4, column=0, sticky="w", padx=5, pady=5)
+        accusedRoleEntry = ttk.Entry(bodyFrame, width=30)
+        accusedRoleEntry.grid(row=4, column=1, sticky="w", padx=5, pady=5)
+
+        descriptionLabel = ttk.Label(bodyFrame, text="Incident Description: ", font=("Calibri", 12))
+        descriptionLabel.grid(row=5, column=0, sticky="nw", padx=5, pady=5)
+        descriptionText = tk.Text(bodyFrame, width=50, height=8)
+        descriptionText.grid(row=5, column=1, sticky="w", padx=5, pady=5)
+
+        witnessesLabel = ttk.Label(bodyFrame, text="Witnesses: ", font=("Calibri", 12))
+        witnessesLabel.grid(row=6, column=0, sticky="nw", padx=5, pady=5)
+        witnessesText = tk.Text(bodyFrame, width=50, height=5)
+        witnessesText.grid(row=6, column=1, sticky="w", padx=5, pady=5)
 
         def save_incident_page_1():
             controller.save_data("Incident Date", incidentDateEntry)
             controller.save_data("Incident Time", incidentTimeEntry)
             controller.save_data("Incident Location", incidentLocationEntry)
+            controller.save_data("Accused Name", accusedNameEntry)
+            controller.save_data("Accused Role", accusedRoleEntry)
+            controller.save_data("Incident Description", descriptionText.get("1.0", "end").strip())
+            controller.save_data("Witnesses", witnessesText.get("1.0", "end").strip())
 
         # NAVIGATION FRAME
         navFrame = tk.Frame(self)
@@ -280,123 +307,15 @@ class incidentDetails1(ttk.Frame):
         navButtonNext = ttk.Button(
             navFrame,
             text="Next",
-            command=lambda: [save_incident_page_1(), controller.show_frame("incidentDetails2")]
+            command=lambda: [save_incident_page_1(), controller.show_frame("resolve")]
         )
         navButtonNext.grid(row=0, column=2, padx=5, pady=5)
 
         progressBar = ttk.Progressbar(navFrame, orient="horizontal", length=950, mode="determinate", maximum=100)
-        progressBar["value"] = 40
+        progressBar["value"] = 50
         progressBar.grid(row=0, column=1, padx=10, pady=10)
 
-
-class incidentDetails2(ttk.Frame):
-    def __init__(self, parent, controller):
-        super().__init__(parent)
-        self.grid_rowconfigure(1, weight=1)
-        self.grid_columnconfigure(0, weight=1)
-
-        # HEADER FRAME
-        headerFrame = tk.Frame(self)
-        headerFrame.pack(side="top")
-        header = ttk.Label(headerFrame, text="Incident Details", font=("Calibri", 30, "bold"))
-        header.grid(row=0, column=0, pady=10, padx=10)
-        headerInfo = ttk.Label(headerFrame, text="Page 2", font=("Calibri", 12))
-        headerInfo.grid(row=1, column=0, pady=10, padx=10)
-
-        # BODY FRAME
-        bodyFrame = tk.Frame(self)
-        bodyFrame.pack(padx=10, pady=10)
-
-        accusedNameLabel = ttk.Label(bodyFrame, text="Reported person name: ", font=("Calibri", 12))
-        accusedNameLabel.grid(row=0, column=0, sticky="w", padx=5, pady=5)
-        accusedNameEntry = ttk.Entry(bodyFrame, width=30)
-        accusedNameEntry.grid(row=0, column=1, sticky="w", padx=5, pady=5)
-
-        accusedRoleLabel = ttk.Label(bodyFrame, text="Reported person role: ", font=("Calibri", 12))
-        accusedRoleLabel.grid(row=1, column=0, sticky="w", padx=5, pady=5)
-        accusedRoleEntry = ttk.Entry(bodyFrame, width=30)
-        accusedRoleEntry.grid(row=1, column=1, sticky="w", padx=5, pady=5)
-
-        descriptionLabel = ttk.Label(bodyFrame, text="Incident description: ", font=("Calibri", 12))
-        descriptionLabel.grid(row=2, column=0, sticky="nw", padx=5, pady=5)
-        descriptionText = tk.Text(bodyFrame, width=50, height=8)
-        descriptionText.grid(row=2, column=1, sticky="w", padx=5, pady=5)
-
-        def save_incident_page_2():
-            controller.save_data("Accused Name", accusedNameEntry)
-            controller.save_data("Accused Role", accusedRoleEntry)
-            controller.save_data("Incident Description", descriptionText.get("1.0", "end").strip())
-
-        # NAVIGATION FRAME
-        navFrame = tk.Frame(self)
-        navFrame.pack(side="bottom")
-
-        navButtonPrev = ttk.Button(navFrame, text="Previous", command=lambda: controller.show_frame("incidentDetails1"))
-        navButtonPrev.grid(row=0, column=0, padx=5, pady=5)
-
-        navButtonNext = ttk.Button(
-            navFrame,
-            text="Next",
-            command=lambda: [save_incident_page_2(), controller.show_frame("incidentDetails3")]
-        )
-        navButtonNext.grid(row=0, column=2, padx=5, pady=5)
-
-        progressBar = ttk.Progressbar(navFrame, orient="horizontal", length=950, mode="determinate", maximum=100)
-        progressBar["value"] = 60
-        progressBar.grid(row=0, column=1, padx=10, pady=10)
-
-
-class incidentDetails3(ttk.Frame):
-    def __init__(self, parent, controller):
-        super().__init__(parent)
-        self.grid_rowconfigure(1, weight=1)
-        self.grid_columnconfigure(0, weight=1)
-
-        # HEADER FRAME
-        headerFrame = tk.Frame(self)
-        headerFrame.pack(side="top")
-        header = ttk.Label(headerFrame, text="Incident Details", font=("Calibri", 30, "bold"))
-        header.grid(row=0, column=0, pady=10, padx=10)
-        headerInfo = ttk.Label(headerFrame, text="Page 3", font=("Calibri", 12))
-        headerInfo.grid(row=1, column=0, pady=10, padx=10)
-
-        # BODY FRAME
-        bodyFrame = tk.Frame(self)
-        bodyFrame.pack(padx=10, pady=10)
-
-        witnessesLabel = ttk.Label(bodyFrame, text="Witnesses: ", font=("Calibri", 12))
-        witnessesLabel.grid(row=0, column=0, sticky="nw", padx=5, pady=5)
-        witnessesText = tk.Text(bodyFrame, width=50, height=5)
-        witnessesText.grid(row=0, column=1, sticky="w", padx=5, pady=5)
-
-        evidenceLabel = ttk.Label(bodyFrame, text="Evidence: ", font=("Calibri", 12))
-        evidenceLabel.grid(row=1, column=0, sticky="nw", padx=5, pady=5)
-        evidenceText = tk.Text(bodyFrame, width=50, height=5)
-        evidenceText.grid(row=1, column=1, sticky="w", padx=5, pady=5)
-
-        def save_incident_page_3():
-            controller.save_data("Witnesses", witnessesText.get("1.0", "end").strip())
-            controller.save_data("Evidence", evidenceText.get("1.0", "end").strip())
-
-        # NAVIGATION FRAME
-        navFrame = tk.Frame(self)
-        navFrame.pack(side="bottom")
-
-        navButtonPrev = ttk.Button(navFrame, text="Previous", command=lambda: controller.show_frame("incidentDetails2"))
-        navButtonPrev.grid(row=0, column=0, padx=5, pady=5)
-
-        navButtonNext = ttk.Button(
-            navFrame,
-            text="Next",
-            command=lambda: [save_incident_page_3(), controller.show_frame("resolve")]
-        )
-        navButtonNext.grid(row=0, column=2, padx=5, pady=5)
-
-        progressBar = ttk.Progressbar(navFrame, orient="horizontal", length=950, mode="determinate", maximum=100)
-        progressBar["value"] = 80
-        progressBar.grid(row=0, column=1, padx=10, pady=10)
-
-
+# Resolution Page - Allows the filer to indicate the resolution process they'd like to go through regarding this report
 class resolve(ttk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
@@ -427,7 +346,7 @@ class resolve(ttk.Frame):
         navFrame = tk.Frame(self)
         navFrame.pack(side="bottom")
 
-        navButtonPrev = ttk.Button(navFrame, text="Previous", command=lambda: controller.show_frame("incidentDetails3"))
+        navButtonPrev = ttk.Button(navFrame, text="Previous", command=lambda: controller.show_frame("incidentDetails"))
         navButtonPrev.grid(row=0, column=0, padx=5, pady=5)
 
         navButtonNext = ttk.Button(
@@ -438,10 +357,10 @@ class resolve(ttk.Frame):
         navButtonNext.grid(row=0, column=2, padx=5, pady=5)
 
         progressBar = ttk.Progressbar(navFrame, orient="horizontal", length=950, mode="determinate", maximum=100)
-        progressBar["value"] = 90
+        progressBar["value"] = 75
         progressBar.grid(row=0, column=1, padx=10, pady=10)
 
-
+# Finalize Page - Wraps up the process by providing the report ID and generating the file.
 class finalize(ttk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
@@ -488,4 +407,6 @@ class finalize(ttk.Frame):
 
 # EXECUTE - Final stage of the program: we simply call the AppManager() to run its tkinter mainloop(), launching the GUI.
 AppManager().mainloop()
-print(data_stored.reporter_data)
+
+# Optional for debugging: pring the contents of the stored data file. This is disabled by default to protect privacy.
+#print(data_stored.reporter_data)

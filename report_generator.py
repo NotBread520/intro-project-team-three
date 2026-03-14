@@ -76,11 +76,6 @@ def build_markdown_report(data):
 
 ---
 
-## Evidence
-{evidence}
-
----
-
 ## Requested Resolution
 {resolution_request}
 
