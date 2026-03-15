@@ -49,10 +49,13 @@ python ethicalReport_GUI.py
 ---
 
 ## File Breakdown
-ethicalReport_GUI.py contains the primary logic and code for the GUI. Execute this file to run the app and create your report file.  
-data_stored.py contains a python dictionary that stores information from the GUI at runtime so that the report can be generated from a defined dictionary of keys.  
-report_generator.py contains the logic and formatting for compiling and saving the markdown document, our final output.  
-ER_2026-03-15_SAMPLE.md contains a sample report generated using EthicalReport's GUI.  
+
+| File Name               | Description                                                                                                                                         |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ethicalReport_GUI.py    | primary logic and code for the GUI. Execute this file to run the app and create your report file.                                                   |
+| data_stored.py          | contains a python dictionary that stores information from the GUI at runtime so that the report can be generated from a defined dictionary of keys. |
+| report_generator.py     | logic and formatting for compiling and saving the markdown document, our final output.                                                              |
+| ER_2026-03-15_SAMPLE.md | sample report generated using EthicalReport's GUI.                                                                                                  |
 
 ---
 
