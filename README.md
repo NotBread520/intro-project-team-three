@@ -73,3 +73,11 @@ https://docs.python.org/3/library/tkinter.ttk.html#module-tkinter.ttk
 A StackOverflow comment made by Bryan Oakley - for the idea of stacking frames and switching between them using tk.raise()
 https://stackoverflow.com/questions/7546050/switch-between-two-frames-in-tkinter
 
+Python dictionaries are easy 📙 - for reviewing how to save data to a dictionary
+https://youtu.be/MZZSMaEAC2g?si=K_Mn3N6jd5VC_ea9
+
+Python Tkinter Tutorial #07 | How to create a CHECKBUTTON using TKINTER - for learning how to use a check button
+https://youtu.be/coDWIWqrupg?si=gFlyxyvH_PZHcjaA
+
+How to Easily Transfer Data Between Python Files: Importing Variables Explained - for learning how to save data between .py files
+https://youtu.be/BI58Vu1Wb2k?si=UYYNl5KIJGn-yv91
