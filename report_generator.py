@@ -24,8 +24,8 @@ def build_markdown_report(data):
     incident_location = safe_value(data, "Incident Location")
     incident_description = safe_value(data, "Incident Description")
 
-    accused_name = safe_value(data, "Accused Name")
-    accused_role = safe_value(data, "Accused Role")
+    respondent_name = safe_value(data, "Respondent Name")
+    respondent_role = safe_value(data, "Respondent Role")
     witnesses = safe_value(data, "Witnesses")
     resolution_request = safe_value(data, "Resolution Request")
     resolution_comment = safe_value(data, "Resolution Comment")
@@ -65,9 +65,9 @@ def build_markdown_report(data):
 
 ---
 
-## Reported Person Information
-- **Name:** {accused_name}
-- **Role / Position:** {accused_role}
+## Respondent's Information
+- **Name:** {respondent_name}
+- **Role / Position:** {respondent_role}
 
 ---
 

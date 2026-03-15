@@ -10,7 +10,7 @@
 # and generates a final markdown report.
 
 import random
-from datetime import date
+from datetime import date, datetime
 import tkinter as tk
 from tkinter import ttk, PhotoImage
 
@@ -28,7 +28,6 @@ class AppManager(tk.Tk):
         self.geometry("1200x700")
         self.resizable(False, False)
 
-        
         # Tkinter Styling Configuration: we create some default 'styles' that we can easily assign to any label or button with style='stylename'
         style = ttk.Style()
         style.theme_use('clam')
@@ -36,7 +35,7 @@ class AppManager(tk.Tk):
         style.configure('Notes.TLabel', font=('Calibri', 12))
         style.configure('Default.TLabel', font=('Calibri', 12))
         style.configure('Default.TButton', font=('Calibri', 12))
-        style.configure('Default.Horizontal.TProgressbar', background='#bee8a5')
+        style.configure('Default.Horizontal.TProgressbar', background='#b9e0a0')
 
 
         # Report ID - Using today's date and a randomly generated, unique number, we use an fstring to create a unique ID we use as the file name and to track the report.
@@ -90,8 +89,8 @@ class hello(ttk.Frame):
         headerFrame = ttk.Frame(self)
         headerFrame.pack(side="top")
 
-        logo = PhotoImage(file = "resources\\EthicalReport_Logo.pbm")
-        logoLabel =  ttk.Label(headerFrame, image=logo)
+        logo = PhotoImage(file = "resources\\EthicalReport_Logo.png")
+        logoLabel =  ttk.Label(headerFrame, text="EthicalReport logo", image=logo)
         logoLabel.image = logo
         logoLabel.grid(row=0, column=0, sticky="s", pady=50, padx=50)
 
@@ -130,8 +129,10 @@ class reportDetails(ttk.Frame):
         # HEADER FRAME
         headerFrame = ttk.Frame(self)
         headerFrame.pack(side="top")
-        header = ttk.Label(headerFrame, text="Report Details", style = 'Header.TLabel')
-        header.grid(row=0, column=0, pady=10, padx=10)
+        headerImage = PhotoImage(file = "resources\\EthicalReport_ReportDetails.png")
+        header = ttk.Label(headerFrame, text="Report Details", image = headerImage, style = 'Header.TLabel')
+        header.image = headerImage
+        header.grid(row=0, column=0, pady=0, padx=0)
 
         headerNote = ttk.Label(headerFrame, text="Provide details about the report. Selecting the \"Remain Anonymous\" button will not include your information in the report.", style='Notes.TLabel')
         headerNote.grid(row=1, column=0, pady=10, padx=10)
@@ -160,7 +161,7 @@ class reportDetails(ttk.Frame):
                 reporterRoleLabel.grid()
                 reporterRoleEntry.grid()
 
-        typeSelectLabel = ttk.Label(headerFrame, text="Select the type of report:", style='Notes.TLabel')
+        typeSelectLabel = ttk.Label(headerFrame, text="Select the type of incident being reported:", style='Notes.TLabel')
         typeSelectLabel.grid(row=2, column=0, pady=10, padx=10)
 
         hReportButton = ttk.Button(
@@ -187,15 +188,15 @@ class reportDetails(ttk.Frame):
         )
         rReportButton.grid(row=3, column=2, padx=10, pady=10, ipadx = 40, ipady = 30)
 
-        reportDateLabel = ttk.Label(bodyFrame, text="Report Date: ", style='Default.TLabel')
-        reportDateLabel.grid(row=4, column=0, sticky="w", padx=5, pady=5)
-        reportDateEntry = ttk.Entry(bodyFrame, width=30)
-        reportDateEntry.grid(row=4, column=1, sticky="w", padx=5, pady=5)
+        # reportDateLabel = ttk.Label(bodyFrame, text="Report Date: ", style='Default.TLabel')
+        # reportDateLabel.grid(row=4, column=0, sticky="w", padx=5, pady=5)
+        # reportDateEntry = ttk.Entry(bodyFrame, width=30)
+        # reportDateEntry.grid(row=4, column=1, sticky="w", padx=5, pady=5)
 
-        reportTimeLabel = ttk.Label(bodyFrame, text="Time of Report: ", style='Default.TLabel')
-        reportTimeLabel.grid(row=5, column=0, sticky="w", padx=5, pady=5)
-        reportTimeEntry = ttk.Entry(bodyFrame, width=30)
-        reportTimeEntry.grid(row=5, column=1, sticky="w", padx=5, pady=5)
+        # reportTimeLabel = ttk.Label(bodyFrame, text="Time of Report: ", style='Default.TLabel')
+        # reportTimeLabel.grid(row=5, column=0, sticky="w", padx=5, pady=5)
+        # reportTimeEntry = ttk.Entry(bodyFrame, width=30)
+        # reportTimeEntry.grid(row=5, column=1, sticky="w", padx=5, pady=5)
 
         isAnonymous = tk.BooleanVar(value=False)
         isAnonymousLabel = ttk.Label(bodyFrame, text="Remain Anonymous: ", style='Default.TLabel')
@@ -230,8 +231,8 @@ class reportDetails(ttk.Frame):
         reporterRoleEntry.grid(row=10, column=1, sticky="w", padx=5, pady=5)
 
         def save_report_data():
-            controller.save_data("Report Date", reportDateEntry)
-            controller.save_data("Report Time", reportTimeEntry)
+            controller.save_data("Report Date", date.today())
+            controller.save_data("Report Time", datetime.now().strftime("%H:%M:%S"))
             controller.save_data("Anonymous", isAnonymous)
 
             if not isAnonymous.get():
@@ -269,8 +270,12 @@ class incidentDetails(ttk.Frame):
         # HEADER FRAME
         headerFrame = ttk.Frame(self)
         headerFrame.pack(side="top")
-        header = ttk.Label(headerFrame, text="Incident Details", style = 'Header.TLabel')
-        header.grid(row=0, column=0, pady=10, padx=10)
+        headerImage = PhotoImage(file = "resources\\EthicalReport_IncidentDetails.png")
+        header = ttk.Label(headerFrame, text="Incident Details", image = headerImage, style = 'Header.TLabel')
+        header.image = headerImage
+        header.grid(row=0, column=0, pady=0, padx=0)
+
+
         headerInfo = ttk.Label(headerFrame, text="Provide information about the incident being reported.", style='Notes.TLabel')
         headerInfo.grid(row=1, column=0, pady=10, padx=10)
 
@@ -293,15 +298,15 @@ class incidentDetails(ttk.Frame):
         incidentLocationEntry = ttk.Entry(bodyFrame, width=30)
         incidentLocationEntry.grid(row=2, column=1, sticky="w", padx=5, pady=5)
 
-        accusedNameLabel = ttk.Label(bodyFrame, text="Reported Person's Name: ", style='Default.TLabel')
-        accusedNameLabel.grid(row=3, column=0, sticky="w", padx=5, pady=5)
-        accusedNameEntry = ttk.Entry(bodyFrame, width=30)
-        accusedNameEntry.grid(row=3, column=1, sticky="w", padx=5, pady=5)
+        respondentNameLabel = ttk.Label(bodyFrame, text="Respondent's Name: ", style='Default.TLabel')
+        respondentNameLabel.grid(row=3, column=0, sticky="w", padx=5, pady=5)
+        respondentNameEntry = ttk.Entry(bodyFrame, width=30)
+        respondentNameEntry.grid(row=3, column=1, sticky="w", padx=5, pady=5)
 
-        accusedRoleLabel = ttk.Label(bodyFrame, text="Reported Person's Role: ", style='Default.TLabel')
-        accusedRoleLabel.grid(row=4, column=0, sticky="w", padx=5, pady=5)
-        accusedRoleEntry = ttk.Entry(bodyFrame, width=30)
-        accusedRoleEntry.grid(row=4, column=1, sticky="w", padx=5, pady=5)
+        respondentRoleLabel = ttk.Label(bodyFrame, text="Respondent Person's Role: ", style='Default.TLabel')
+        respondentRoleLabel.grid(row=4, column=0, sticky="w", padx=5, pady=5)
+        respondentRoleEntry = ttk.Entry(bodyFrame, width=30)
+        respondentRoleEntry.grid(row=4, column=1, sticky="w", padx=5, pady=5)
 
         descriptionLabel = ttk.Label(bodyFrame, text="Incident Description: ", style='Default.TLabel')
         descriptionLabel.grid(row=5, column=0, sticky="nw", padx=5, pady=5)
@@ -317,8 +322,8 @@ class incidentDetails(ttk.Frame):
             controller.save_data("Incident Date", incidentDateEntry)
             controller.save_data("Incident Time", incidentTimeEntry)
             controller.save_data("Incident Location", incidentLocationEntry)
-            controller.save_data("Accused Name", accusedNameEntry)
-            controller.save_data("Accused Role", accusedRoleEntry)
+            controller.save_data("Respondent Name", respondentNameEntry)
+            controller.save_data("Respondent Role", respondentRoleEntry)
             controller.save_data("Incident Description", descriptionText.get("1.0", "end").strip())
             controller.save_data("Witnesses", witnessesText.get("1.0", "end").strip())
 
@@ -351,8 +356,11 @@ class resolve(ttk.Frame):
         # HEADER FRAME
         headerFrame = ttk.Frame(self)
         headerFrame.pack(side="top")
-        header = ttk.Label(headerFrame, text="Resolution Process Request", style = 'Header.TLabel')
-        header.grid(row=0, column=0, pady=10, padx=10)
+
+        headerImage = PhotoImage(file = "resources\\EthicalReport_ReportProcReq.png")
+        header = ttk.Label(headerFrame, text="Report Process Request", image = headerImage, style = 'Header.TLabel')
+        header.image = headerImage
+        header.grid(row=0, column=0, pady=0, padx=0)
         headerInfo = ttk.Label(headerFrame, text="Please select how you'd like this report to be handled:", style='Notes.TLabel')
         headerInfo.grid(row=1, column=0, pady=10, padx=10)
 
@@ -425,8 +433,12 @@ class finalize(ttk.Frame):
         # HEADER FRAME
         headerFrame = ttk.Frame(self)
         headerFrame.pack(side="top")
-        header = ttk.Label(headerFrame, text="Report Complete", style = 'Header.TLabel')
-        header.grid(row=0, column=0, pady=10, padx=10)
+
+        headerImage = PhotoImage(file = "resources\\EthicalReport_ReportComplete.png")
+        header = ttk.Label(headerFrame, text="Report Process Request", image = headerImage, style = 'Header.TLabel')
+        header.image = headerImage
+        header.grid(row=0, column=0, pady=0, padx=0)
+
         headerInfo = ttk.Label(headerFrame, text=f"Your Report ID is: {reportID}", style='Notes.TLabel')
         headerInfo.grid(row=1, column=0, pady=10, padx=10)
 
@@ -434,12 +446,22 @@ class finalize(ttk.Frame):
         bodyFrame = ttk.Frame(self)
         bodyFrame.pack(padx=10, pady=10)
 
-        finishLabel = ttk.Label(
-            bodyFrame,
-            text="Click Finish to generate and save your markdown report.",
-            style='Notes.TLabel'
-        )
-        finishLabel.pack(pady=20)
+        # This is a list of compliance officers within the company. The software will randomly select one to be assigned to handling this report.
+        complianceOfficers = {"John Doe": "johndoe@ethicalreport.org",
+                              "Jane Doe": "janedoe@ethicalreport.org",
+                              "Lisa Sample": "lisasample@ethicalreport.org",
+                              "Timothy Template": "timothytemplate@ethicalreport.org"
+        }
+        
+        assignedCO = random.choice(list(complianceOfficers.keys()))
+        officerLabel = ttk.Label(bodyFrame, text=f"The compliance officer assigned to your case is {assignedCO}", style='Notes.TLabel' )
+        officerLabel.grid(row=3, column=0, pady=10, padx=10)
+        contactLabel = ttk.Label(bodyFrame, text=f"You can reach them at: {complianceOfficers[assignedCO]}", style='Notes.TLabel' )
+        contactLabel.grid(row=4, column=0, pady=10, padx=10)
+
+        
+        finishLabel = ttk.Label(bodyFrame, text="Click Finish to generate and save your markdown report.", style='Notes.TLabel')
+        finishLabel.grid(row=5, column=0, pady=10, padx=10)
 
         def finish_report():
             report_generator.save_markdown_report(data_stored.reporter_data)

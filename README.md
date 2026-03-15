@@ -1,14 +1,11 @@
 # EthicalReport
-A workplace harassment, discrimination, and retaliation reporting tool.
+A workplace harassment, discrimination, and retaliation reporting tool that focuses on human-readable output.
 ---
 ## About This Project: EthicalReport v1.0
-This project is software that helps employees create well formatted report documents for workplace harassment, discrimination, and retaliation incidents. The software aims to provide a human readable, portable markdown report file. The resulting report includes information like date and time the incident occurred, the individuals involved, witnesses, a description of the incident, the compliance officer assigned to review the report, a report ID, and the report status. 
-
-## About the Resulting Report File
-The final output of the EthicalReport software is a markdown file (.md), which includes a comprehensive, readable report on the incident with all necessary information included. The file name is created based on the year it was created and the assigned ID of the report, which is also present within the file. It includes well formatted and clearly labeled text that summarizes all of the information gathered at the time of reporting.
+This project is software that helps employees create well formatted report documents for workplace harassment, discrimination, and retaliation incidents. The software aims to provide a human readable, portable markdown file. The resulting report includes information like date and time the incident occurred, the individuals involved, witnesses, a description of the incident, the compliance officer assigned to review the report, a report ID, and the report status. 
 
 ## Why EthicalReport Matters
-Workplace harassment and discrimination reporting tools can be confusing, lack confidentiality, and are often opaque to the user. This can make the employee feel that the report is not being taken seriously or simply ignored. If the company itself and the filing individual do not have proper records, it can be difficult to track and solve workplace incidents that satisfy all parties. By creating a comprehensive and human readable markdown file, we can create a digital record that helps hold the company accountable and keep the filer informed. EthicalReport's design allows for an intuitive data structure that your team can quickly integrate into existing HR tools.
+Workplace harassment and discrimination reporting tools can be confusing, lack confidentiality, and the followup process is often opaque to the reporter. This can make the employee feel that the report is not being taken seriously, or has been simply ignored. If the company itself and the filing individual do not have proper records, it can be difficult to track and solve workplace incidents that satisfy all parties. By creating a comprehensive and human readable markdown file, we can create a digital record that helps hold the company accountable and keep the filer informed. EthicalReport is designed around an intuitive data structure that an HR team could quickly integrate into existing HR tools.
 
 ---
 
@@ -31,3 +28,19 @@ Workplace harassment and discrimination reporting tools can be confusing, lack c
 2. Use the navigation bar at the bottom of the GUI window to navigate between the different pages of the report form.
 3. Follow the prompts on the screen to fill out all the relevant information.
 4. On the final page, record the Report ID that EthicalReport generates for you. This ID records the date of the report when filed and a unique ID for your individual report.
+
+---
+## Citations
+
+Python Datetime Docs - for using datetime
+https://docs.python.org/3/library/datetime.html
+
+The Tkinter Docs - Overall Functionality
+https://docs.python.org/3/library/tkinter.html
+
+Themed Tk Widges Docs - Understanding Themed Tkinter Widgets
+https://docs.python.org/3/library/tkinter.ttk.html#module-tkinter.ttk
+
+A StackOverflow comment made by Bryan Oakley - for the idea of stacking frames and switching between them using tk.raise()
+https://stackoverflow.com/questions/7546050/switch-between-two-frames-in-tkinter
+
