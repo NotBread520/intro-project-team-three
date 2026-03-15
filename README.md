@@ -34,8 +34,8 @@ Workplace harassment and discrimination reporting tools can be confusing, lack c
 [ Windows ]
 EthicalReport has not been packaged as an executable. To run this software, follow these instructions:
 1. Download all of the .py files from the EthicalReport repository to your local computer.
-2. Install Python 3.19.9 or later. You can do this using the following command:
-   ```winget install -e --id Python.Python.3.19
+2. Install Python 3.13 or later. You can do this using the following command:
+   ```winget install -e --id Python.Python.3.13
    ```
 3. With Python installed, navigate to the folder containing ethicalReport_GUI.py, open a Terminal prompt there, and type python ethicalReport_GUI.py to execute the GUI.
 
