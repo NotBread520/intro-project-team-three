@@ -29,7 +29,26 @@ Workplace harassment and discrimination reporting tools can be confusing, lack c
 3. Follow the prompts on the screen to fill out all the relevant information.
 4. On the final page, record the Report ID that EthicalReport generates for you. This ID records the date of the report when filed and a unique ID for your individual report.
 
+
+## Configuration, Installation, and Execution
+[ Windows ]
+EthicalReport has not been packaged as an executable. To run this software, follow these instructions:
+1. Download all of the .py files from the EthicalReport repository to your local computer.
+2. Install Python 3.19.9 or later. You can do this using the following command:
+   ```winget install -e --id Python.Python.3.19
+   ```
+3. With Python installed, navigate to the folder containing ethicalReport_GUI.py, open a Terminal prompt there, and type python ethicalReport_GUI.py to execute the GUI.
+
 ---
+
+## File Breakdown
+ethicalReport_GUI.py contains the primary logic and code for the GUI. Execute this file to run the app and create your report file.  
+data_stored.py contains a python dictionary that stores information from the GUI at runtime so that the report can be generated from a defined dictionary of keys.  
+report_generator.py contains the logic and formatting for compiling and saving the markdown document, our final output.  
+ER_2026-03-15_SAMPLE.md contains a sample report generated using EthicalReport's GUI.  
+
+---
+
 ## Citations
 
 Python Datetime Docs - for using datetime

@@ -141,6 +141,7 @@ class reportDetails(ttk.Frame):
         bodyFrame = ttk.Frame(self, width=500, height=200)
         bodyFrame.pack(padx=10, pady=10)
 
+        # Functionality for hiding or placing text entry fields based on the option to anonymize the report
         def toggle_reporter_details():
             if isAnonymous.get():
                 reporterNameLabel.grid_remove()
@@ -164,6 +165,7 @@ class reportDetails(ttk.Frame):
         typeSelectLabel = ttk.Label(headerFrame, text="Select the type of incident being reported:", style='Notes.TLabel')
         typeSelectLabel.grid(row=2, column=0, pady=10, padx=10)
 
+        # Buttons for the selection of each type of report
         hReportButton = ttk.Button(
             bodyFrame,
             text="Harassment",
@@ -187,16 +189,6 @@ class reportDetails(ttk.Frame):
             style='Default.TButton'
         )
         rReportButton.grid(row=3, column=2, padx=10, pady=10, ipadx = 40, ipady = 30)
-
-        # reportDateLabel = ttk.Label(bodyFrame, text="Report Date: ", style='Default.TLabel')
-        # reportDateLabel.grid(row=4, column=0, sticky="w", padx=5, pady=5)
-        # reportDateEntry = ttk.Entry(bodyFrame, width=30)
-        # reportDateEntry.grid(row=4, column=1, sticky="w", padx=5, pady=5)
-
-        # reportTimeLabel = ttk.Label(bodyFrame, text="Time of Report: ", style='Default.TLabel')
-        # reportTimeLabel.grid(row=5, column=0, sticky="w", padx=5, pady=5)
-        # reportTimeEntry = ttk.Entry(bodyFrame, width=30)
-        # reportTimeEntry.grid(row=5, column=1, sticky="w", padx=5, pady=5)
 
         isAnonymous = tk.BooleanVar(value=False)
         isAnonymousLabel = ttk.Label(bodyFrame, text="Remain Anonymous: ", style='Default.TLabel')
@@ -230,6 +222,7 @@ class reportDetails(ttk.Frame):
         reporterRoleEntry = ttk.Entry(bodyFrame, width=30)
         reporterRoleEntry.grid(row=10, column=1, sticky="w", padx=5, pady=5)
 
+        #Saves the data collected from this 'controller' (aka this tkinter Frame)
         def save_report_data():
             controller.save_data("Report Date", date.today())
             controller.save_data("Report Time", datetime.now().strftime("%H:%M:%S"))
@@ -276,7 +269,7 @@ class incidentDetails(ttk.Frame):
         header.grid(row=0, column=0, pady=0, padx=0)
 
 
-        headerInfo = ttk.Label(headerFrame, text="Provide information about the incident being reported.", style='Notes.TLabel')
+        headerInfo = ttk.Label(headerFrame, text="Provide information about the incident being reported. A \"Respondent\" Refers to a person accused of exhibiting the reported behavior.", style='Notes.TLabel')
         headerInfo.grid(row=1, column=0, pady=10, padx=10)
 
         # BODY FRAME
@@ -446,7 +439,7 @@ class finalize(ttk.Frame):
         bodyFrame = ttk.Frame(self)
         bodyFrame.pack(padx=10, pady=10)
 
-        # This is a list of compliance officers within the company. The software will randomly select one to be assigned to handling this report.
+        # This is a dictionary of compliance officers within the company. The software will randomly select one to be assigned to handling this report.
         complianceOfficers = {"John Doe": "johndoe@ethicalreport.org",
                               "Jane Doe": "janedoe@ethicalreport.org",
                               "Lisa Sample": "lisasample@ethicalreport.org",
@@ -454,7 +447,7 @@ class finalize(ttk.Frame):
         }
         
         assignedCO = random.choice(list(complianceOfficers.keys()))
-        officerLabel = ttk.Label(bodyFrame, text=f"The compliance officer assigned to your case is {assignedCO}", style='Notes.TLabel' )
+        officerLabel = ttk.Label(bodyFrame, text=f"The compliance officer assigned to process your report is {assignedCO}", style='Notes.TLabel' )
         officerLabel.grid(row=3, column=0, pady=10, padx=10)
         contactLabel = ttk.Label(bodyFrame, text=f"You can reach them at: {complianceOfficers[assignedCO]}", style='Notes.TLabel' )
         contactLabel.grid(row=4, column=0, pady=10, padx=10)
@@ -463,6 +456,7 @@ class finalize(ttk.Frame):
         finishLabel = ttk.Label(bodyFrame, text="Click Finish to generate and save your markdown report.", style='Notes.TLabel')
         finishLabel.grid(row=5, column=0, pady=10, padx=10)
 
+        # Here we call the report_generator file to use the data in the data_stored dictionary to execute the generation of a report. We then destroy the window, closing the GUI.
         def finish_report():
             report_generator.save_markdown_report(data_stored.reporter_data)
             controller.destroy()
@@ -482,8 +476,8 @@ class finalize(ttk.Frame):
         progressBar.grid(row=0, column=1, padx=10, pady=10)
 
 
-# EXECUTE - Final stage of the program: we simply call the AppManager() to run its tkinter mainloop(), launching the GUI.
+# EXECUTE - Final stage of the program: we simply call the AppManager() to run its tkinter mainloop(), launching the GUI and executing all the above logic
 AppManager().mainloop()
 
-# Optional for debugging: pring the contents of the stored data file. This is disabled by default to protect privacy.
+# Optional for debugging: print the contents of the stored data file. This is disabled by default to protect privacy.
 #print(data_stored.reporter_data)
