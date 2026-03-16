@@ -48,6 +48,9 @@ python ethicalReport_GUI.py
 
 ---
 
+## App Screenshots
+[Ethical Report GUI Screenshots](https://drive.google.com/file/d/1F0BnH4kxwmBBqj2QcPUNS0KGVRWDc9_8/view?usp=sharing)
+
 ## File Breakdown
 
 | File Name               | Description                                                                                                                                         | Contributors            |
